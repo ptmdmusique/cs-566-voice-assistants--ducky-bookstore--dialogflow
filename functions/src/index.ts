@@ -1,9 +1,9 @@
+import * as logger from "firebase-functions/logger";
 import { onRequest } from "firebase-functions/v2/https";
 import { match } from "ts-pattern";
-import { handleFindPhysicalLocationIntent } from "./intents/FindPhysicalLocationIntent";
-import { handleSearchBooksIntent } from "./intents/SearchBooksIntent";
+import { handleFindPhysicalLocationIntent } from "./intents/FindPhysicalLocationIntent/handleFindPhysicalLocationIntent";
+import { handleSearchBooksIntent } from "./intents/SearchBooksIntent/handleSearchBooksIntent";
 import { AvailableIntentName, WebhookRequest, WebhookResponse } from "./types";
-import * as logger from "firebase-functions/logger";
 
 export const handleWebhook = onRequest((request, response) => {
   // Only allow the request if its header contains "sourceApp" and its value is "ducky-bookstore-webhook"
