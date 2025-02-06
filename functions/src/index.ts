@@ -1,5 +1,9 @@
 import { onRequest } from "firebase-functions/v2/https";
-import { WebhookRequest } from "./types";
+import { match } from "ts-pattern";
+import { handleFindPhysicalLocationIntent } from "./intents/FindPhysicalLocationIntent";
+import { handleSearchBooksIntent } from "./intents/SearchBooksIntent";
+import { AvailableIntentName, WebhookRequest, WebhookResponse } from "./types";
+import * as logger from "firebase-functions/logger";
 
 export const handleWebhook = onRequest((request, response) => {
   // Only allow the request if its header contains "sourceApp" and its value is "ducky-bookstore-webhook"
@@ -8,50 +12,22 @@ export const handleWebhook = onRequest((request, response) => {
     return;
   }
 
-  const data = request.body as WebhookRequest;
+  const data = request.body as WebhookRequest<AvailableIntentName>;
   console.log("data", data);
 
-  const tag = request.body.queryResult.intent.displayName;
+  try {
+    const tag = data.queryResult?.intent?.displayName;
+    const responseObj: WebhookResponse = match(tag)
+      .returnType<WebhookResponse>()
+      .with("SearchBooksIntent", () => handleSearchBooksIntent())
+      .with("FindPhysicalLocationIntent", () =>
+        handleFindPhysicalLocationIntent(),
+      )
+      .exhaustive();
 
-  let jsonResponse = {};
-  if (tag === "Default Welcome Intent") {
-    //fulfillment response to be sent to the agent if the request tag is equal to "welcome tag"
-    jsonResponse = {
-      fulfillment_messages: [
-        {
-          text: {
-            //fulfillment text response to be sent to the agent
-            text: ["Hello from a GCF Webhook"],
-          },
-        },
-      ],
-    };
-  } else if (tag === "get-name") {
-    //fulfillment response to be sent to the agent if the request tag is equal to "welcome tag"
-    jsonResponse = {
-      fulfillment_messages: [
-        {
-          text: {
-            //fulfillment text response to be sent to the agent
-            text: ["My name is Flowhook"],
-          },
-        },
-      ],
-    };
-  } else {
-    jsonResponse = {
-      //fulfillment text response to be sent to the agent if there are no defined responses for the specified tag
-      fulfillment_messages: [
-        {
-          text: {
-            ////fulfillment text response to be sent to the agent
-            text: [
-              `There are no fulfillment responses defined for "${tag}"" tag`,
-            ],
-          },
-        },
-      ],
-    };
+    response.send(responseObj);
+  } catch (error) {
+    logger.error(error);
+    response.status(500).send(error);
   }
-  response.send(jsonResponse);
 });

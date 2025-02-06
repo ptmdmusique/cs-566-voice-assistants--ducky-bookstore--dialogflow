@@ -1,4 +1,4 @@
-export interface WebhookRequest {
+export interface WebhookRequest<Tag = string> {
   responseId: string;
   session: string;
   queryResult: {
@@ -10,7 +10,7 @@ export interface WebhookRequest {
     outputContexts?: Context[];
     intent: {
       name: string;
-      displayName: string;
+      displayName: Tag;
     };
     diagnosticInfo?: Record<string, any>;
     languageCode: string;
@@ -25,8 +25,8 @@ interface Context {
 }
 
 export interface WebhookResponse {
+  fulfillmentMessages: { text: { text: string[] } }[];
   fulfillmentText?: string;
-  fulfillmentMessages?: { text: { text: string[] } }[];
   source?: string;
   payload?: Record<string, any>;
   outputContexts?: Context[];
@@ -36,3 +36,7 @@ export interface WebhookResponse {
     languageCode?: string;
   };
 }
+
+export type AvailableIntentName =
+  | "FindPhysicalLocationIntent"
+  | "SearchBooksIntent";
