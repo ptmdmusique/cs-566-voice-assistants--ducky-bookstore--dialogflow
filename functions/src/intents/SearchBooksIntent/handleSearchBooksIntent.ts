@@ -1,5 +1,7 @@
-import { WebhookResponse } from "../../types";
+import { WebhookRequest, WebhookResponse } from "../../types";
 
-export const handleSearchBooksIntent = (): WebhookResponse => {
+export const handleSearchBooksIntent = (
+  data: WebhookRequest<"SearchBooksIntent">,
+): WebhookResponse => {
   throw new Error("Not implemented");
 };

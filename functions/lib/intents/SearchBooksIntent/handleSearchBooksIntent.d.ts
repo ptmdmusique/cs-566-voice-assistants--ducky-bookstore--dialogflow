@@ -1,2 +1,2 @@
-import { WebhookResponse } from "../../types";
-export declare const handleSearchBooksIntent: () => WebhookResponse;
+import { WebhookRequest, WebhookResponse } from "../../types";
+export declare const handleSearchBooksIntent: (data: WebhookRequest<"SearchBooksIntent">) => WebhookResponse;

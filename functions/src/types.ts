@@ -1,4 +1,6 @@
-export interface WebhookRequest<Tag = string> {
+export interface WebhookRequest<
+  Tag extends AvailableIntentName = AvailableIntentName,
+> {
   responseId: string;
   session: string;
   queryResult: {
