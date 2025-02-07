@@ -41,4 +41,6 @@ export interface WebhookResponse {
 
 export type AvailableIntentName =
   | "FindPhysicalLocationIntent"
-  | "SearchBooksIntent";
+  | "SearchBooksIntent"
+  | "Default Fallback Intent"
+  | "Default Welcome Intent";

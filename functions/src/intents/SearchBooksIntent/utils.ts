@@ -1,19 +1,12 @@
 import Fuse from "fuse.js";
 import { match } from "ts-pattern";
+import { getRandomArrayElement } from "../utils";
 import {
-  ERROR_PROMPTS,
-  FALLBACK_PROMPTS,
-  GOODBYE_PROMPTS,
-  GREETING_PROMPTS,
-  HELP_PROMPTS,
   MOCK_BOOK_RESPONSE,
   NO_MATCH_PROMPTS,
-  NO_SLOT_PROMPTS,
-  REPROMPT_PROMPTS,
   RESULT_PROMPTS,
 } from "./mock-data";
 import { AvailableSlotType, BookItem, UserInput } from "./types";
-import { getRandomArrayElement } from "../utils";
 
 // * --- Data query
 export const queryForData = (userInput: UserInput) => {
@@ -77,36 +70,8 @@ const getFuseKeyFromSlotType = (
 //   };
 // };
 
-export const getGreetingPrompt = () => {
-  return getRandomArrayElement(GREETING_PROMPTS);
-};
-
-export const getNoSlotPrompt = () => {
-  return getRandomArrayElement(NO_SLOT_PROMPTS);
-};
-
 export const getNoResultPrompt = () => {
   return getRandomArrayElement(NO_MATCH_PROMPTS);
-};
-
-export const getRepromptPrompts = () => {
-  return getRandomArrayElement(REPROMPT_PROMPTS);
-};
-
-export const getHelpPrompts = () => {
-  return getRandomArrayElement(HELP_PROMPTS);
-};
-
-export const getGoodbyePrompts = () => {
-  return getRandomArrayElement(GOODBYE_PROMPTS);
-};
-
-export const getFallbackPrompts = () => {
-  return getRandomArrayElement(FALLBACK_PROMPTS);
-};
-
-export const getErrorPrompts = () => {
-  return getRandomArrayElement(ERROR_PROMPTS);
 };
 
 export const getResultPrompts = (bookItems: BookItem[]) => {

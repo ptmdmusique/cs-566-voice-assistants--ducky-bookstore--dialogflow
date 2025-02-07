@@ -42,5 +42,5 @@ export interface WebhookResponse {
         languageCode?: string;
     };
 }
-export type AvailableIntentName = "FindPhysicalLocationIntent" | "SearchBooksIntent";
+export type AvailableIntentName = "FindPhysicalLocationIntent" | "SearchBooksIntent" | "Default Fallback Intent" | "Default Welcome Intent";
 export {};

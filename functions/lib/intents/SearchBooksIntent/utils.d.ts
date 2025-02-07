@@ -1,11 +1,4 @@
 import { BookItem, UserInput } from "./types";
 export declare const queryForData: (userInput: UserInput) => BookItem[];
-export declare const getGreetingPrompt: () => string;
-export declare const getNoSlotPrompt: () => string;
 export declare const getNoResultPrompt: () => string;
-export declare const getRepromptPrompts: () => string;
-export declare const getHelpPrompts: () => string;
-export declare const getGoodbyePrompts: () => string;
-export declare const getFallbackPrompts: () => string;
-export declare const getErrorPrompts: () => string;
 export declare const getResultPrompts: (bookItems: BookItem[]) => string;

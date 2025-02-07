@@ -1,11 +1,4 @@
 import { GoogleBooksAPIResponse } from "./types";
 export declare const MOCK_BOOK_RESPONSE: GoogleBooksAPIResponse;
-export declare const GREETING_PROMPTS: string[];
-export declare const NO_SLOT_PROMPTS: string[];
 export declare const NO_MATCH_PROMPTS: string[];
-export declare const REPROMPT_PROMPTS: string[];
 export declare const RESULT_PROMPTS: string[];
-export declare const HELP_PROMPTS: string[];
-export declare const GOODBYE_PROMPTS: string[];
-export declare const FALLBACK_PROMPTS: string[];
-export declare const ERROR_PROMPTS: string[];
