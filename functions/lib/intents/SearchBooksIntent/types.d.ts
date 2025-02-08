@@ -1,7 +1,14 @@
-export type AvailableSlotType = "BookTitle" | "AuthorName" | "PublishedDate" | "Genre";
-export type AvailableGenre = "travel" | "technology" | "romance" | "history" | "self-help" | "biography" | "fantasy" | "science" | "nonfiction" | "fiction";
-export interface UserInput extends Record<AvailableSlotType, string | undefined> {
-    Genre: AvailableGenre;
+export type AvailableGenre = "travel" | "technology" | "romance" | "history" | "biography" | "fantasy" | "science" | "nonfiction" | "fiction" | "science fiction" | "mystery" | "thriller";
+export interface UserInput {
+    any: string | "";
+    person: {
+        name: string;
+    } | "";
+    genre: AvailableGenre | "";
+    "date-period": {
+        startDate: string;
+        endDate: string;
+    } | "";
 }
 export interface GoogleBooksAPIResponse {
     kind: string;
@@ -11,36 +18,36 @@ export interface GoogleBooksAPIResponse {
 export interface BookItem {
     kind: string;
     id: string;
-    etag: string;
-    selfLink: string;
+    etag?: string;
+    selfLink?: string;
     volumeInfo: BookVolumeInfo;
-    saleInfo: BookSaleInfo;
-    accessInfo: BookAccessInfo;
+    saleInfo?: BookSaleInfo;
+    accessInfo?: BookAccessInfo;
 }
 interface BookVolumeInfo {
     title: string;
     authors: string[];
-    publisher: string;
+    publisher?: string;
     publishedDate: string;
-    description: string;
-    industryIdentifiers: {
+    description?: string;
+    industryIdentifiers?: {
         type: string;
         identifier: string;
     }[];
-    readingModes: {
+    readingModes?: {
         text: boolean;
         image: boolean;
     };
-    pageCount: number;
-    printType: string;
+    pageCount?: number;
+    printType?: string;
     categories: string[];
-    averageRating: number;
-    ratingsCount: number;
-    maturityRating: string;
-    language: string;
-    previewLink: string;
-    infoLink: string;
-    canonicalVolumeLink: string;
+    averageRating?: number;
+    ratingsCount?: number;
+    maturityRating?: string;
+    language?: string;
+    previewLink?: string;
+    infoLink?: string;
+    canonicalVolumeLink?: string;
 }
 interface BookSaleInfo {
     country: string;

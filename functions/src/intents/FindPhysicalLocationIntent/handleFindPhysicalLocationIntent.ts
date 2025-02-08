@@ -23,6 +23,7 @@ export const handleFindPhysicalLocationIntent = (
     };
   }
 
+  const numResultToReturn = Math.min(searchResult.length, MAX_RESULT_RETURN);
   return {
     fulfillmentMessages: [
       {
@@ -32,13 +33,15 @@ export const handleFindPhysicalLocationIntent = (
               .replace("{numResults}", searchResult.length.toString())
               .replace("{location}", address)
               .replace("{miles}", distance.toString())
-              .replace("{actualResultToReturn}", MAX_RESULT_RETURN.toString()),
+              .replace("{actualResultToReturn}", numResultToReturn.toString()),
           ],
         },
       },
       {
         text: {
-          text: searchResult.map((item) => `${item.name} (${item.address})\n`),
+          text: searchResult
+            .slice(0, numResultToReturn)
+            .map((item) => `${item.name} (${item.address})\n`),
         },
       },
     ],
